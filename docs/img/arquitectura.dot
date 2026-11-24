@@ -1,0 +1,18 @@
+digraph Arq {
+  graph [rankdir=TB, fontname="Helvetica", bgcolor="white", pad=0.3, nodesep=0.4, ranksep=0.5];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11];
+  ui [label="Pantallas (screens/)\nLogin · Inicio · Juego · Historial · Detalle · Ranking · Ajustes", fillcolor="#E3F2FD"];
+  w [label="Widgets reutilizables (widgets/)\nreciben datos y callbacks por constructor", fillcolor="#E3F2FD"];
+  ctrl [label="Controladores (ChangeNotifier)\nGameController · AjustesController · SesionService", fillcolor="#FFF8E1"];
+  dao [label="DAOs (data/)\nUsuarioDao · PartidaDao · PartidaGuardadaDao\n(todo el SQL, consultas parametrizadas)", fillcolor="#E8F5E9"];
+  notif [label="CambiosDatos\n(ValueNotifier: refresco de listas)", fillcolor="#E8F5E9", shape=note];
+  helper [label="DatabaseHelper (singleton)\nopenDatabase · onConfigure · onCreate · onUpgrade", fillcolor="#E8F5E9"];
+  db [label="SQLite\ngame2048.db", shape=cylinder, fillcolor="#C8E6C9"];
+  prefs [label="PreferenciasService\n(claves constantes)", fillcolor="#FCE4EC"];
+  sp [label="SharedPreferences", shape=cylinder, fillcolor="#F8BBD0"];
+  ui -> w [label="compone"];
+  ui -> ctrl; ui -> dao [label="async/await"];
+  dao -> helper -> db;
+  dao -> notif [style=dashed]; notif -> ui [style=dashed, label="escuchan"];
+  ctrl -> prefs -> sp;
+}

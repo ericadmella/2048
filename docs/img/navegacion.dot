@@ -1,0 +1,33 @@
+digraph Nav {
+  graph [rankdir=TB, fontname="Helvetica", bgcolor="white", pad=0.3, nodesep=0.5, ranksep=0.6];
+  node [shape=box, style="rounded,filled", fillcolor="#FFF8E1", fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=9, color="#555555"];
+  login [label="LoginScreen\n/login", fillcolor="#EDE0C8"];
+  registro [label="RegisterScreen\n/registro", fillcolor="#EDE0C8"];
+  subgraph cluster_shell {
+    label="HomeShell  /  (NavigationBar + IndexedStack)"; style="rounded,dashed"; color="#999999"; fontname="Helvetica"; fontsize=11;
+    inicio [label="Inicio"]; historial [label="Historial"]; ranking [label="Ranking y\nestadísticas"]; ajustes [label="Ajustes"];
+  }
+  juego [label="GameScreen\n/juego", fillcolor="#F2B179"];
+  detalle [label="DetallePartidaScreen\n/detalle", fillcolor="#F2B179"];
+  fin [label="Diálogo fin de partida", shape=note, fillcolor="#FFFFFF"];
+  salir [label="Diálogo salir (PopScope)\nguardar / no guardar / cancelar", shape=note, fillcolor="#FFFFFF"];
+
+  login -> registro [label="pushNamed"];
+  registro -> inicio [label="pushNamedAndRemoveUntil\n(sesión iniciada)"];
+  login -> inicio [label="pushReplacementNamed\n(usuario autenticado)"];
+  inicio -> juego [label="pushNamed\nJuegoArgs(continuar: true|false)"];
+  juego -> fin [label="tablero bloqueado\n(transacción BD)"];
+  fin -> inicio [label="pop  «Volver al inicio»"];
+  fin -> juego [label="«Jugar de nuevo»", style=dashed];
+  juego -> salir [label="atrás con partida en curso"];
+  salir -> inicio [label="pop"];
+  historial -> detalle [label="pushNamed(arguments: id)"];
+  detalle -> historial [label="pop(true) si se eliminó", style=dashed, color="#C62828", fontcolor="#C62828"];
+  ranking -> detalle [label="pushNamed(arguments: id)"];
+  ajustes -> login [label="cerrar sesión\npushNamedAndRemoveUntil"];
+  inicio -> historial [label="pestaña", style=dotted, arrowhead=none];
+  historial -> ranking [style=dotted, arrowhead=none];
+  ranking -> ajustes [style=dotted, arrowhead=none];
+  {rank=same; inicio; historial; ranking; ajustes;}
+}

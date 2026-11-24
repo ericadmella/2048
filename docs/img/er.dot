@@ -1,0 +1,40 @@
+digraph ER {
+  graph [rankdir=LR, fontname="Helvetica", bgcolor="white", pad=0.3, nodesep=0.6];
+  node [shape=plain, fontname="Helvetica", fontsize=11];
+  edge [fontname="Helvetica", fontsize=10];
+  usuarios [label=<
+  <table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+   <tr><td bgcolor="#EDC22E" colspan="2"><b>usuarios</b></td></tr>
+   <tr><td align="left"><u>id</u></td><td align="left">INTEGER PK AUTOINCREMENT</td></tr>
+   <tr><td align="left">usuario</td><td align="left">TEXT NOT NULL UNIQUE</td></tr>
+   <tr><td align="left">fecha_registro</td><td align="left">TEXT NOT NULL (ISO 8601)</td></tr>
+   <tr><td align="left">email</td><td align="left">TEXT NOT NULL UNIQUE</td></tr>
+   <tr><td align="left">contrasena</td><td align="left">TEXT NOT NULL (hash SHA-256)</td></tr>
+   <tr><td align="left">salt</td><td align="left">TEXT NOT NULL</td></tr>
+  </table>>];
+  partidas [label=<
+  <table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+   <tr><td bgcolor="#F59563" colspan="2"><b>partidas</b></td></tr>
+   <tr><td align="left"><u>id</u></td><td align="left">INTEGER PK AUTOINCREMENT</td></tr>
+   <tr><td align="left"><i>usuario_id</i></td><td align="left">INTEGER FK → usuarios.id (CASCADE)</td></tr>
+   <tr><td align="left">usuario</td><td align="left">TEXT NOT NULL</td></tr>
+   <tr><td align="left">puntuacion</td><td align="left">INTEGER NOT NULL</td></tr>
+   <tr><td align="left">ficha_maxima</td><td align="left">INTEGER NOT NULL</td></tr>
+   <tr><td align="left">movimientos</td><td align="left">INTEGER NOT NULL</td></tr>
+   <tr><td align="left">duracion_segundos</td><td align="left">INTEGER NOT NULL</td></tr>
+   <tr><td align="left">fecha</td><td align="left">TEXT NOT NULL (ISO 8601)</td></tr>
+   <tr><td align="left" bgcolor="#E8F5E9">tamano_tablero</td><td align="left" bgcolor="#E8F5E9">INTEGER NOT NULL DEFAULT 4 (v2)</td></tr>
+  </table>>];
+  guardada [label=<
+  <table border="0" cellborder="1" cellspacing="0" cellpadding="5">
+   <tr><td bgcolor="#EDE0C8" colspan="2"><b>partida_guardada</b></td></tr>
+   <tr><td align="left"><u>id</u></td><td align="left">INTEGER PK CHECK (id = 1)</td></tr>
+   <tr><td align="left">tablero</td><td align="left">TEXT NOT NULL (JSON, 16 valores)</td></tr>
+   <tr><td align="left">puntuacion</td><td align="left">INTEGER NOT NULL</td></tr>
+   <tr><td align="left">movimientos</td><td align="left">INTEGER NOT NULL</td></tr>
+   <tr><td align="left">segundos_transcurridos</td><td align="left">INTEGER NOT NULL</td></tr>
+   <tr><td align="left">usuario</td><td align="left">TEXT</td></tr>
+   <tr><td align="left" bgcolor="#E8F5E9">tamano_tablero</td><td align="left" bgcolor="#E8F5E9">INTEGER NOT NULL DEFAULT 4 (v2)</td></tr>
+  </table>>];
+  usuarios -> partidas [label="1 : N", arrowhead=crow, arrowtail=tee, dir=both];
+}
