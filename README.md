@@ -17,7 +17,7 @@ flutter pub get
 flutter run
 ```
 
-La carpeta `android/` está generada con la plantilla de Flutter 3.50 (estable). Si tu versión de Flutter es más antigua y Gradle da errores, regenera la plataforma (no toca `lib/`):
+La carpeta `android/` está generada con la plantilla de Flutter 3.44.3 (estable): Gradle 9.1.0, Android Gradle Plugin 9.0.1 y Kotlin 2.3.20. Si usas otra versión de Flutter y Gradle da errores, regenera la plataforma (no toca `lib/`):
 
 ```bash
 flutter create . --platforms=android --org com.ericadmella
