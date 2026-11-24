@@ -9,6 +9,7 @@ class PartidaGuardada {
   final int movimientos;
   final int segundosTranscurridos;
   final String? usuario;
+  final int tamanoTablero;
 
   const PartidaGuardada({
     required this.tablero,
@@ -16,6 +17,7 @@ class PartidaGuardada {
     required this.movimientos,
     required this.segundosTranscurridos,
     this.usuario,
+    this.tamanoTablero = 4,
   });
 
   Map<String, Object?> toMap() => {
@@ -26,6 +28,7 @@ class PartidaGuardada {
         'movimientos': movimientos,
         'segundos_transcurridos': segundosTranscurridos,
         'usuario': usuario,
+        'tamano_tablero': tamanoTablero,
       };
 
   factory PartidaGuardada.fromMap(Map<String, Object?> map) => PartidaGuardada(
@@ -36,5 +39,6 @@ class PartidaGuardada {
         movimientos: map['movimientos'] as int,
         segundosTranscurridos: map['segundos_transcurridos'] as int,
         usuario: map['usuario'] as String?,
+        tamanoTablero: (map['tamano_tablero'] as int?) ?? 4,
       );
 }

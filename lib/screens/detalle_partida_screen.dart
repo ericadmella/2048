@@ -133,6 +133,11 @@ class _Contenido extends StatelessWidget {
           valor: Formato.fecha(partida.fecha),
           icono: Icons.calendar_today,
         ),
+        StatCard(
+          titulo: 'Tablero',
+          valor: '${partida.tamanoTablero}×${partida.tamanoTablero}',
+          icono: Icons.border_all,
+        ),
       ],
     );
   }

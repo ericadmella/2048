@@ -15,7 +15,8 @@ class DatabaseHelper {
 
   /// Versión actual del esquema.
   ///  - v1: usuarios, partidas, partida_guardada.
-  static const int version = 1;
+  ///  - v2: columna `tamano_tablero` (DEFAULT 4) en partidas y partida_guardada.
+  static const int version = 2;
 
   // Nombres de tablas como constantes para no repetir cadenas.
   static const String tablaUsuarios = 'usuarios';
@@ -70,7 +71,9 @@ class DatabaseHelper {
   }
 
   /// Mapa versión -> migración que lleva el esquema a esa versión.
-  static final Map<int, Future<void> Function(Database)> _migraciones = {};
+  static final Map<int, Future<void> Function(Database)> _migraciones = {
+    2: _migracionV2,
+  };
 
   static Future<void> _crearEsquemaV1(Database db) async {
     final batch = db.batch();
@@ -114,6 +117,16 @@ class DatabaseHelper {
     batch.execute(
         'CREATE INDEX idx_partidas_usuario ON $tablaPartidas (usuario)');
     await batch.commit(noResult: true);
+  }
+
+  /// v1 -> v2: añade `tamano_tablero` con valor por defecto 4.
+  /// ALTER TABLE ... ADD COLUMN conserva todas las filas existentes, que
+  /// reciben el valor por defecto.
+  static Future<void> _migracionV2(Database db) async {
+    await db.execute(
+        'ALTER TABLE $tablaPartidas ADD COLUMN tamano_tablero INTEGER NOT NULL DEFAULT 4');
+    await db.execute(
+        'ALTER TABLE $tablaPartidaGuardada ADD COLUMN tamano_tablero INTEGER NOT NULL DEFAULT 4');
   }
 
   Future<void> cerrar() async {

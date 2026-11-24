@@ -113,6 +113,7 @@ void main() {
     expect(p2.id, 3);
     expect(p2.puntuacion, 1200);
     expect(p2.fecha, p.fecha);
+    expect(p2.tamanoTablero, 4);
   });
 
   group('Swipe', () {

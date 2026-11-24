@@ -9,6 +9,9 @@ class Partida {
   final int duracionSegundos;
   final DateTime fecha;
 
+  /// Columna añadida en la versión 2 de la base de datos.
+  final int tamanoTablero;
+
   const Partida({
     this.id,
     this.usuarioId,
@@ -18,6 +21,7 @@ class Partida {
     required this.movimientos,
     required this.duracionSegundos,
     required this.fecha,
+    this.tamanoTablero = 4,
   });
 
   Map<String, Object?> toMap() => {
@@ -29,6 +33,7 @@ class Partida {
         'movimientos': movimientos,
         'duracion_segundos': duracionSegundos,
         'fecha': fecha.toIso8601String(),
+        'tamano_tablero': tamanoTablero,
       };
 
   factory Partida.fromMap(Map<String, Object?> map) => Partida(
@@ -40,5 +45,6 @@ class Partida {
         movimientos: map['movimientos'] as int,
         duracionSegundos: map['duracion_segundos'] as int,
         fecha: DateTime.parse(map['fecha'] as String),
+        tamanoTablero: (map['tamano_tablero'] as int?) ?? 4,
       );
 }

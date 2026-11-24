@@ -132,6 +132,7 @@ class GameController extends ChangeNotifier {
         movimientos: _movimientos,
         segundosTranscurridos: _segundos,
         usuario: usuario,
+        tamanoTablero: tamano,
       );
 
   Partida aPartida({required String usuario, int? usuarioId}) => Partida(
@@ -142,6 +143,7 @@ class GameController extends ChangeNotifier {
         movimientos: _movimientos,
         duracionSegundos: _segundos,
         fecha: DateTime.now(),
+        tamanoTablero: tamano,
       );
 
   @override
