@@ -6,7 +6,7 @@ Práctica final: el juego **2048** en Flutter con persistencia local.
 - **shared_preferences**: modo de tema (claro / oscuro / sistema), paleta de colores de las fichas, último jugador, mejor puntuación y vibración.
 - **UI**: navegación con rutas centralizadas y `NavigationBar`, gestos (swipe, Dismissible + Deshacer, pulsación larga, RefreshIndicator, doble toque), widgets reutilizables y animaciones.
 
-📄 Documentación completa: [`docs/DOCUMENTACION.md`](docs/DOCUMENTACION.md). Los diagramas están en Mermaid (GitHub los dibuja) y en Graphviz (`docs/img/*.dot`).
+Documentación completa: [`docs/DOCUMENTACION.md`](docs/DOCUMENTACION.md). Los diagramas están en Mermaid (GitHub los dibuja) y en Graphviz (`docs/img/*.dot`).
 
 ## Ejecutar
 
